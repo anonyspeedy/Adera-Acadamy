@@ -1,0 +1,317 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #333;
+    --light-bg: #f9f9f9;
+    --white: #fff;
+    --black: #000;
+    --gray: #777;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--secondary-color);
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+header .logo {
+    font-size: 2rem;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav a {
+    color: var(--white);
+    margin: 0 1rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+/* Header Buttons Styling */
+
+.btn-login,
+.btn-register {
+    padding: 0.25rem 0.75rem; /* Reduces padding for better alignment */
+    border-radius: 0.25rem; /* Reduces border radius for a more subtle look */
+    text-decoration: none;
+    font-size: 0.9rem; /* Reduces font size for better alignment */
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-login {
+    background-color: var(--white);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-login:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-register {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-register:hover {
+    background-color: var(--white);
+    color: var(--primary-color);
+}
+
+.video-background {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.video-background .hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    color: var(--white);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.hero a {
+    background-color: var(--white);
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+}
+
+.hero a:hover {
+    background-color: var(--light-bg);
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.feature {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.feature h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.feature p {
+    color: var(--gray);
+    font-size: 1.2rem;
+}
+
+.testimonials {
+    background-color: var(--light-bg);
+    padding: 2rem;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.testimonials .testimonial {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin: 1rem auto;
+    max-width: 800px;
+    font-style: italic;
+}
+
+.testimonial span {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.newsletter {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 2rem;
+}
+
+.newsletter h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter form {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.newsletter input[type="email"] {
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    width: 300px;
+    margin-right: 1rem;
+}
+
+.newsletter button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    color: var(--primary-color);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: var(--light-bg);
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+}
+.feature-card {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 0.5rem 0.5rem 0 0; /* Rounded corners only at the top */
+}
+
+.feature-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.feature-content h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.feature-content p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    color: var(--gray);
+}
+.course-catalog {
+    padding: 2rem;
+    background-color: var(--light-bg);
+}
+
+.course-catalog h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.course-card {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.course-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border-radius: 0.5rem 0.5rem 0 0; /* Rounded corners only at the top */
+}
+
+.course-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.course-content h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.course-content p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+    color: var(--gray);
+}
