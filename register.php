@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle file upload (Profile image)
     $profile_image = $_FILES['profile']['name'];
     $profile_image_tmp = $_FILES['profile']['tmp_name'];
-    $target_directory = "uploads/";
+    $target_directory = __DIR__ . "/uploads/"; // Ensure the correct path to the uploads directory
     $target_file = $target_directory . basename($profile_image);
 
     // Check if file is a valid image
@@ -43,24 +43,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Check if the target directory exists
+    if (!is_dir($target_directory)) {
+        echo "<div class='alert alert-danger'>Target directory does not exist.</div>";
+        exit();
+    }
+
+    // Check if the target directory is writable
+    if (!is_writable($target_directory)) {
+        echo "<div class='alert alert-danger'>Target directory is not writable.</div>";
+        exit();
+    }
+
     // Move the uploaded file to the server directory
     if (!move_uploaded_file($profile_image_tmp, $target_file)) {
         echo "<div class='alert alert-danger'>Sorry, there was an error uploading your file.</div>";
         exit();
     }
 
+    // Store the relative path to the profile image
+    $relative_profile_image = "uploads/" . basename($profile_image);
+
     // Prepare SQL query to insert user data
     $sql = "INSERT INTO users (name, email, password, profile_image) VALUES (?, ?, ?, ?)";
     
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $name, $email, $hashed_password, $target_file);
+    $stmt->bind_param("ssss", $name, $email, $hashed_password, $relative_profile_image);
 
     // Execute the query and check for success
     if ($stmt->execute()) {
-        echo "<div class='alert alert-success'>Registration successful! <a href='index.php'>Login here</a></div>";
+        echo "<div class='alert alert-success'>Registration successful! <a href='login.php'>Login here</a></div>";
         // Redirect to login page
-        header("Location: index.php");
-        exit(); // Make sure no further code runs after redirect
+        header("Location: login.php");
+        exit(); 
     } else {
         echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
     }
