@@ -1,15 +1,19 @@
 <?php
 // Include the database connection file
-include('db_config.php');
+require_once 'db_config.php';
 
+// Start a session
+session_start();
+
+// Check if the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
-    $email = htmlspecialchars($_POST['email']);
-    $password = htmlspecialchars($_POST['pass']);
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $password = filter_var($_POST['pass'], FILTER_SANITIZE_STRING);
 
     // Prepare SQL query to fetch the user from the database
     $sql = "SELECT * FROM users WHERE email = ?";
-    
+
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -19,33 +23,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows > 0) {
             // Fetch the user data from the result
             $user = $result->fetch_assoc();
-            
+
             // Verify the password
             if (password_verify($password, $user['password'])) {
                 // Password is correct, login successful
-                session_start();  // Start a session
-                $_SESSION['user_id'] = $user['id'];  // Store user ID in session
-                $_SESSION['user_name'] = $user['name'];  // Store user name in session
-                $_SESSION['email'] = $user['email'];  // Store email in session
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['name'];
+                $_SESSION['profile_image'] = $user['profile_image'];
 
-                // Redirect to home.html page after successful login
-                header("Location: home.html");
+                // Redirect to home.php page after successful login
+                header("Location: home.php");
                 exit();
             } else {
-                echo "<div class='alert alert-danger'>Invalid password!</div>";
+                $error = "Invalid password!";
             }
         } else {
-            echo "<div class='alert alert-danger'>No user found with that email!</div>";
+            $error = "No user found with that email!";
         }
 
         // Close the statement
         $stmt->close();
     } else {
-        echo "<div class='alert alert-danger'>Database query failed!</div>";
+        $error = "Database query failed!";
     }
 
     // Close the database connection
     $conn->close();
+}
+
+// Display error message if any
+if (isset($error)) {
+    echo "<div class='alert alert-danger'>$error</div>";
 }
 ?>
 
@@ -68,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="card-body">
             <h3 class="text-center mb-4">Login Now</h3>
 
-            <form action="index.php" method="post">
+            <form action="login.php" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required maxlength="50">
