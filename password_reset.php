@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Email not found
             $error_message = "No user found with that email!";
         }
-    } elseif (isset($_POST['new_pass']) && isset($_POST['confirm_pass'])) {
+    } elseif (isset($_POST['new_pass']) && isset($_POST['confirm_pass']) && isset($_POST['email_to_reset'])) {
         // Step 2: Handle new password submission
-        $email = htmlspecialchars($_POST['email']);
+        $email = htmlspecialchars($_POST['email_to_reset']);
         $new_pass = htmlspecialchars($_POST['new_pass']);
         $confirm_pass = htmlspecialchars($_POST['confirm_pass']);
 
@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php else: ?>
                 <!-- Step 2: New Password form -->
                 <form action="password_reset.php" method="post">
+                    <input type="hidden" name="email_to_reset" value="<?php echo htmlspecialchars($email_to_reset); ?>">
                     <div class="mb-3">
                         <label for="new_password" class="form-label">New Password</label>
                         <input type="password" name="new_pass" id="new_password" class="form-control" placeholder="Enter your new password" required maxlength="20">
