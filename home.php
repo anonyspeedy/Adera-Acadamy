@@ -34,6 +34,7 @@ $profile_image = isset($user['profile_image']) ? $user['profile_image'] : 'uploa
     <title>Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -80,25 +81,79 @@ $profile_image = isset($user['profile_image']) ? $user['profile_image'] : 'uploa
 
     <nav class="navbar">
         <a href="home.php"><i class="fas fa-home"></i><span>Home</span></a>
-        <a href="about.php"><i class="fas fa-question"></i><span>About</span></a>
-        <a href="courses.php"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
-        <a href="teachers.php"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
-        <a href="contact.php"><i class="fas fa-headset"></i><span>Contact Us</span></a>
+        <a href="#" id="load-courses"><i class="fas fa-graduation-cap"></i><span>Courses</span></a>
+        <a href="#" id="load-playlist"><i class="fas fa-play"></i><span>Playlist</span></a>
+        <a href="#" id="load-about"><i class="fas fa-question"></i><span>About</span></a>
+        <a href="#" id="load-teachers"><i class="fas fa-chalkboard-user"></i><span>Teachers</span></a>
+        <a href="#" id="load-contact"><i class="fas fa-headset"></i><span>Contact Us</span></a>
     </nav>
 </div>
 
 <!-- Main Content -->
-<section class="home-grid">
+<section class="home-grid" id="main-content">
     <h1 class="heading">Quick Options</h1>
     <div class="box-container">
-        <!-- Your content here -->
+        <!-- Default content or placeholder -->
+        <p>Welcome to Adera Academy! Select an option from the sidebar to get started.</p>
     </div>
 </section>
 
 <footer class="footer">
-    &copy; Copyright @ 2022 by <span>Mr. Web Designer</span> | All rights reserved!
+    &copy; Copyright @ 2025 by <span>Adera Acadamy</span> | All rights reserved!
 </footer>
 
 <script src="js/script.js"></script>
+<script>
+$(document).ready(function() {
+    function loadContent(url, selector) {
+        $('#main-content').load(url + ' ' + selector, function() {
+            // Re-attach event handlers after content is loaded
+            attachEventHandlers();
+        });
+    }
+
+    function attachEventHandlers() {
+        $('#load-courses').click(function(e) {
+            e.preventDefault();
+            loadContent('courses.html', '.courses');
+        });
+
+        $('#load-playlist').click(function(e) {
+            e.preventDefault();
+            loadContent('playlist.html', '.playlist-details, .playlist-videos');
+        });
+
+        $('#load-about').click(function(e) {
+            e.preventDefault();
+            loadContent('about.html', '.about');
+        });
+
+        $('#load-teachers').click(function(e) {
+            e.preventDefault();
+            loadContent('teachers.html', '.teachers');
+        });
+
+        $('#load-contact').click(function(e) {
+            e.preventDefault();
+            loadContent('contact.html', '.contact');
+        });
+
+        // Handle "view playlist" links within dynamically loaded content
+        $(document).on('click', '.inline-btn', function(e) {
+            e.preventDefault();
+            loadContent('playlist.html', '.playlist-details, .playlist-videos');
+        });
+
+        // Handle video links within dynamically loaded content
+        $(document).on('click', '.playlist-videos .box a', function(e) {
+            e.preventDefault();
+            loadContent('watch-video.php', '.watch-video, .comments');
+        });
+    }
+
+    // Initial attachment of event handlers
+    attachEventHandlers();
+});
+</script>
 </body>
 </html>
